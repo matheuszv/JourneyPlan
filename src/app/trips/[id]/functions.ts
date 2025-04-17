@@ -134,6 +134,7 @@ export async function setMadeActivitie(id: string, activitieId: string){
 }
 
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export async function sendEmailInvite(email: string, travelPlans: TripsPlans | null, toast: any){
    
     const result = await fetch(`/api/sendEmailInvite`, {
