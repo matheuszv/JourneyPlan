@@ -6,7 +6,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function POST(req: NextRequest) {
     const body = await req.json();
     const [year, month, day] = body.occurs_at.split("-").map(Number);
-    const date = new Date(year, month - 1, day); // isso cria no horário local (sem UTC)
+    const date = new Date(Date.UTC(year, month - 1, day)); 
     try {
       const result = await prisma.activities.findFirst({
         where: {
