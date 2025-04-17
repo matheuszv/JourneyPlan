@@ -1,5 +1,5 @@
 import { CircleDashed, CircleCheck } from "lucide-react"
-import { format } from "date-fns"
+import { toZonedTime, format } from 'date-fns-tz';
 import { setMadeActivitie } from "@/app/trips/[id]/functions"
 
 interface Activities{
@@ -31,15 +31,15 @@ export function DaysPlans({activity}: DaysPlans){
             <div className="space-y-8 w-full">
                 <div className="space-y-2.5 w-full">
                     <div className="flex gap-3 items-baseline">
-                        <h3 className="text-zinc-200 text-xl">Day {format(activity.date, "d")}</h3>
+                        <h3 className="text-zinc-200 text-xl">Day {format(toZonedTime(activity.date, 'UTC'), 'd')}</h3>
                         <span className="text-xs text-zinc-500">{format(activity.date, "EEEE")}</span>  
                     </div>
                     {activity.activities.length > 0 ? 
                         (
                             <div className="flex flex-col gap-2 items-center">
-                                {activity.activities.map(plans => {
+                                {activity.activities.map((plans, index: number) => {
                                     return(
-                                        <div key={plans.occurs_at} className={`${background} flex flex-1 justify-between items-center rounded-lg w-full border border-zinc-800 px-4 py-2.5`}>
+                                        <div key={index} className={`${background} flex flex-1 justify-between items-center rounded-lg w-full border border-zinc-800 px-4 py-2.5`}>
                                             <div className="flex gap-2 items-center">
                                                 {plans.made == true ? (<CircleCheck className="size-5 text-green-500 cursor-pointer" onClick={() => setMadeActivitie(activity.id, plans.id)}/>) : (<CircleDashed className="size-5 text-zinc-500 cursor-pointer" onClick={() => setMadeActivitie(activity.id, plans.id)}/>)
                                                 }
