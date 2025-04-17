@@ -66,17 +66,13 @@ export async function POST(req: NextRequest) {
       }
 
             
-      transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-          console.log('Erro:', error)
-        } else {
-          console.log('E-mail enviado:', info.response)
-        }
-      })
-
-      return NextResponse.json({
-        result,
-      }, { status: 200 });
+      try {
+        await transporter.sendMail(mailOptions);
+        return NextResponse.json({ message: "Mensagem enviada com sucesso!" }, { status: 200 });
+      } catch (error) {
+        console.error("Erro ao enviar e-mail:", error);
+        return NextResponse.json({ message: JSON.stringify(error) }, { status: 500 });
+      }
     } catch (error) {
       console.error('Error fetching events:', error);
       return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });

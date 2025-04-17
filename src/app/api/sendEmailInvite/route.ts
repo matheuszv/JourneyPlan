@@ -44,25 +44,14 @@ export async function POST(req: NextRequest) {
       `,
       }
 
-      let result = false
-            
-      transporter.sendMail(mailOptions, function (error) {
-        if (error) {
-          console.log(error)
-          result=false
-        } else {
-          result=true
-        }
-      })
-      if(!result){
-        return NextResponse.json({
-          result
-        }, { status: 200 });
-      } else {
-        return NextResponse.json({
-          result
-        }, { status: 400 });
+      try {
+        await transporter.sendMail(mailOptions);
+        return NextResponse.json({ message: "Mensagem enviada com sucesso!" }, { status: 200 });
+      } catch (error) {
+        console.error("Erro ao enviar e-mail:", error);
+        return NextResponse.json({ message: JSON.stringify(error) }, { status: 500 });
       }
+      
     }
   
 
