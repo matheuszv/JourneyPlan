@@ -1,0 +1,29 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Activities {
+  id          String @id @default(auto())     @map("_id") @db.ObjectId
+  date        DateTime
+  travelId    String
+  activities  Json?
+}
+
+model Travel {
+
+    id String @id @default(auto()) @map("_id") @db.ObjectId
+    local String
+    ownerName String
+    ownerEmail String
+    dayStart DateTime
+    dayEnd DateTime
+    emailsInvite String
+    links String?
+    password String
+
+}
