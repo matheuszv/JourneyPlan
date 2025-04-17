@@ -1,4 +1,3 @@
-'use client'
 import { FormEvent } from "react"
 
 
@@ -28,7 +27,7 @@ export async function setNewLink(event: FormEvent<HTMLFormElement>, travelPlans:
             return
         }
 
-        const result = await fetch(`/api/createlinks`, {
+        const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/createlinks`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -58,7 +57,7 @@ export async function setNewEmail(event: FormEvent<HTMLFormElement>, travelPlans
         return
     }
 
-    const result = await fetch(`/api/createtrip`, {
+    const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/createtrip`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -99,7 +98,7 @@ export async function setNewActivie(event: FormEvent<HTMLFormElement>, travelPla
     if(date < travelPlans?.dayStart || date > travelPlans?.dayEnd){
         return
     }
-    const result = await fetch(`/api/createactivities`, {
+    const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/createactivities`, {
         method: 'POST',
         headers: {
         'Content-Type': 'application/json'
@@ -119,7 +118,7 @@ export async function setNewActivie(event: FormEvent<HTMLFormElement>, travelPla
 
 export async function setMadeActivitie(id: string, activitieId: string){
    
-    const result = await fetch(`/api/createactivities`, {
+    const result = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/createactivities`, {
         method: 'PUT',
         headers: {
         'Content-Type': 'application/json'
