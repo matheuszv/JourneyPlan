@@ -132,3 +132,23 @@ export async function setMadeActivitie(id: string, activitieId: string){
         window.location.reload()
     }
 }
+
+
+export async function sendEmailInvite(email: string, travelPlans: TripsPlans | null, toast: any){
+   
+    const result = await fetch(`/api/sendEmailInvite`, {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            id: travelPlans?.id,
+            owner_name: travelPlans?.ownerName,
+            email: email
+        })
+    });
+    console.log(result.status)
+    if(result.ok){
+        toast.success('Friend invited!', { autoClose: 1300, hideProgressBar: true })
+    }
+}

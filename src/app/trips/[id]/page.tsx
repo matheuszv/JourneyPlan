@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
-import { setNewLink, setNewEmail, setNewActivie } from './functions'
+import { setNewLink, setNewEmail, setNewActivie, sendEmailInvite } from './functions'
 import { DaysPlans } from "@/components/daysPlans";
 import { LocalDateTrip } from "@/components/navbar";
-import { Calendar, Clock, KeyIcon, Link, Link2, Mail, Plus, Tag, UserPlus } from "lucide-react";
+import { Calendar, Clock, KeyIcon, Link, Link2, Mail, Plus, Send, Tag, UserPlus } from "lucide-react";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { CustomDialog } from '@/components/customDialog';
@@ -154,12 +154,14 @@ export default function Trips({travelPlans, plans}: {travelPlans: TripsPlans | n
                         <div className="gap-3 flex flex-col">
                             {participants?.map((email: string, index:number)=> {
                                 return(
-                                    <div key={index} className="flex justify-between items-center">
+                                    <div key={index} className="flex justify-between items-center" title="Send email" >
                                         <div className="flex flex-col">
                                             <h4>{`Convidado ${index+1}` }</h4>
                                             <span className="text-zinc-400 text-xs">{email}</span>
                                         </div>
-                                        <Link2 className="size-5 text-zinc-400 cursor-pointer" />
+                                        <div title="Send email inviting">   
+                                            <Send className="size-5 text-white cursor-pointer" onClick={() => sendEmailInvite(email, travelPlans, toast)}/>
+                                        </div>
                                     </div>
                                 )
                             })}

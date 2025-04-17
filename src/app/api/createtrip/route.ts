@@ -47,10 +47,6 @@ export async function POST(req: NextRequest) {
               <a href="${process.env.NEXT_PUBLIC_BASE_URL}/trips/${result.id}" style="display: inline-block; margin-top: 10px; background-color: #4F46E5; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none;">
                 View Journey Plan
               </a>
-              or
-              <a href="${process.env.NEXT_PUBLIC_BASE_URL}/trips/${result.id}">
-                ${process.env.NEXT_PUBLIC_BASE_URL}/trips/${result.id}
-              </a>
             </p>
             <p style="font-size: 16px;">
               🔑 <strong>Your access key:</strong><br/>
