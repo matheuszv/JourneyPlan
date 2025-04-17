@@ -44,12 +44,12 @@ export async function POST(req: NextRequest) {
             </p>
             <p style="font-size: 16px; margin: 20px 0;">
               📌 <strong>Access your plan here:</strong><br/>
-              <a href="http://localhost:3000/trips/${result.id}" style="display: inline-block; margin-top: 10px; background-color: #4F46E5; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none;">
+              <a href="${process.env.NEXT_PUBLIC_BASE_URL}/trips/${result.id}" style="display: inline-block; margin-top: 10px; background-color: #4F46E5; color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none;">
                 View Journey Plan
               </a>
               or
-              <a href="http://localhost:3000/trips/${result.id}">
-                http://localhost:3000/trips/${result.id}
+              <a href="${process.env.NEXT_PUBLIC_BASE_URL}/trips/${result.id}">
+                ${process.env.NEXT_PUBLIC_BASE_URL}/trips/${result.id}
               </a>
             </p>
             <p style="font-size: 16px;">
