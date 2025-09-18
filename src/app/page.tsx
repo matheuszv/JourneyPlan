@@ -1,5 +1,5 @@
 'use client'
-import { MapPin, Settings2, UserRoundPlus, ArrowRight, User, Mail, KeyIcon } from 'lucide-react';
+import { MapPin, Settings2, UserRoundPlus, ArrowRight, User, Mail, KeyIcon, Hourglass } from 'lucide-react';
 import Image from "next/image";
 import { FormEvent, useState } from 'react';
 import icon from '../../public/globe.svg';
@@ -17,6 +17,7 @@ export default function Home() {
 
   const [planConfirmed, setPlanConfirmed] = useState(false)
   const [modalScreen, setModalScreen] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   //First Inputs
   const [range, setRange] = useState<DateRange | undefined>()
@@ -32,6 +33,7 @@ export default function Home() {
 
   async function createNewTrip(event: FormEvent<HTMLFormElement>){
     
+
     event.preventDefault()
     if(local==''){
       return
@@ -49,6 +51,7 @@ export default function Home() {
       return
     }
 
+    setIsLoading(true)
 
     const response = await fetch('/api/createtrip', {
         method: 'POST',
@@ -72,6 +75,7 @@ export default function Home() {
         redirect(`/trips/${data.result.id}`)
        
     } else {
+        setIsLoading(false)
         console.error('Erro na requisição:', response.statusText);
     }
   }
@@ -180,8 +184,8 @@ export default function Home() {
                           <input type="text" name="password" value={ownerPassword} onChange={(e) => setOwnerPassword(e.target.value)} placeholder="Event key" className="bg-transparent text-lg placeholder-zinc-400 flex-1 outline-none font-light"/>
                         </div>
                         <p className="text-xs text-zinc-400">After submitting this form, we will send all the necessary data to your email, in case you forget the information.</p>
-                        <button disabled={ownerEmail=='' || ownerName==''} className="cursor-pointer bg-lime-300 text-lime-950 mt-1.5 rounded-lg p-3 flex font-medium items-center text-center justify-center hover:bg-yellow-400 disabled:bg-lime-300 disabled:text-lime-500 disabled:cursor-not-allowed">
-                          Create Trip
+                        <button disabled={ownerEmail=='' || ownerName=='' || isLoading==true} className="cursor-pointer bg-lime-300 text-lime-950 mt-1.5 rounded-lg p-3 flex font-medium items-center text-center justify-center hover:bg-yellow-400 disabled:bg-lime-300 disabled:text-lime-500 disabled:cursor-not-allowed">
+                          Create Trip { isLoading && <Hourglass />}
                         </button>
                       </form>
                     </div>
